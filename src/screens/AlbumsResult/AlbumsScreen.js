@@ -6,14 +6,16 @@ import {FlatList} from 'react-native-gesture-handler';
 import {Dimensions} from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import {customFunctions} from '../../config/customFunctions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AlbumsScreen = ({route}) => {
   const id = route.params;
   const [data, setData] = useState([]);
   const customService = new customFunctions();
 
-  const search = () => {
-    var service = customService.searchArtist();
+  const search = async () => {
+     const myUser = JSON.parse(await AsyncStorage.getItem('myUser'));
+    var service = customService.searchArtist(myUser.accessToken);
     fetch('https://api.spotify.com/v1/artists/' + id + '/albums', service)
       .then(res => res.json())
       .then(response => {

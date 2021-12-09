@@ -5,6 +5,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {TextInput} from 'react-native-gesture-handler';
 import {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthenticationHandler from '../../config/authenticationHandler'
+import {useEffect} from 'react';
 
 const HomeScreen = ({navigation}) => {
   const [artistName, setArtistName] = useState('');

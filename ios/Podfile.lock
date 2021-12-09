@@ -454,7 +454,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
-  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RNVectorIcons (from `../../.npm-global/lib/node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -551,7 +551,7 @@ EXTERNAL SOURCES:
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
-    :path: "../node_modules/react-native-vector-icons"
+    :path: "../../.npm-global/lib/node_modules/react-native-vector-icons"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 

@@ -1,15 +1,32 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image, View} from 'react-native';
+import {useIsFocused } from '@react-navigation/native';
 import {Button} from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
-
-import {AuthenticationHandler} from '../../config/authenticationHandler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthenticationHandler from '../../config/authenticationHandler'
+import {useEffect, useState} from 'react';
+import {TextInput} from 'react-native-gesture-handler';
 
 const LoginScreen = ({navigation}) => {
   const authenticationHandler = new AuthenticationHandler();
-  const login = () => {
+  const [res, setRes]= useState([""]);
+const isFocused = useIsFocused();
+  const login = async () => {
     authenticationHandler.onLogin();
   };
+
+  const test = async () =>{
+     const myUser = JSON.parse(await AsyncStorage.getItem('myUser'));
+    setRes(myUser.isLoggedIn);
+  }
+const MINUTE_MS = 83;
+
+  useEffect(() => {
+   test()
+
+}, [isFocused])
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -25,11 +42,6 @@ const LoginScreen = ({navigation}) => {
           <Text style={styles.buttonText}>L O G I N</Text>
         </Button>
 
-        <Button
-          style={styles.button}
-          onPress={() => navigation.navigate('HomeScreen')}>
-          <Text style={styles.buttonText}>Search</Text>
-        </Button>
       </LinearGradient>
     </View>
   );

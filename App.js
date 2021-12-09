@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {NativeBaseProvider} from 'native-base';
 import LoginScreen from './src/screens/Login/loginScreen';
 import HomeScreen from './src/screens/Home/homeScreen';
@@ -16,9 +16,9 @@ const Stack = createStackNavigator();
 
 function App() {
   const appState = useRef(AppState.currentState);
-
   useEffect(() => {
     AppState.addEventListener('change', _handleAppStateChange);
+    
     dispatchStore();
     return () => {
       AppState.removeEventListener('change', _handleAppStateChange);
@@ -50,9 +50,9 @@ function App() {
       <NativeBaseProvider>
         <NavigationContainer>
           <Stack.Navigator>
-            {res ? (
+     {res ? (
               <Stack.Screen
-                name="Home"
+                name="HomeScreen"
                 options={{headerShown: false, title: 'HomeScreen'}}
                 component={HomeScreen}
               />
@@ -62,12 +62,12 @@ function App() {
                 options={{headerShown: false, title: 'Login'}}
                 component={LoginScreen}
               />
-            )}
-            <Stack.Screen
-              name="HomeScreen"
-              options={{headerShown: false, title: 'HomeScreen'}}
-              component={HomeScreen}
-            />
+            )} 
+           <Stack.Screen
+                name="Home"
+                options={{headerShown: false, title: 'HomeScreen'}}
+                component={HomeScreen}
+              />
             <Stack.Screen
               name="ArtistScreen"
               options={{title: 'Artists'}}

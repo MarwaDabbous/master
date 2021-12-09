@@ -7,18 +7,19 @@ import {FlatList} from 'react-native-gesture-handler';
 import {Dimensions} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {TouchableHighlight} from 'react-native-gesture-handler';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {customFunctions} from '../../config/customFunctions';
 
 const ArtistScreen = ({navigation, route}) => {
   const artistName = route.params;
   const [data, setData] = useState([]);
-  let width = Dimensions.get('screen').width / 2 - 8;
+  const width = Dimensions.get('screen').width / 2 - 8;
   const customService = new customFunctions();
 
-  const artistsList = () => {
-    var service = customService.searchArtist();
-    console.log('service', service);
+  const artistsList = async () => {
+    const myUser = JSON.parse(await AsyncStorage.getItem('myUser'));
+    var service = customService.searchArtist(myUser.accessToken);
+    console.log('Marwa', service);
     fetch(
       'https://api.spotify.com/v1/search?q=' +
         artistName +
@@ -28,6 +29,7 @@ const ArtistScreen = ({navigation, route}) => {
       .then(res => res.json())
       .then(response => {
         setData(response.artists.items);
+
       });
   };
 
@@ -77,6 +79,8 @@ const ArtistScreen = ({navigation, route}) => {
     </View>
   );
 };
+
+ const width = Dimensions.get('screen').width / 2 - 8;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
